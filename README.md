@@ -14,7 +14,7 @@ java-react/
 
 ## Prerequisites
 
-- Java 16 or higher
+- Java 21 or higher
 - Node.js 16+ and pnpm
 - Docker and Docker Compose
 
@@ -46,10 +46,11 @@ The frontend will be available at: http://localhost:5173
 ## Development
 
 ### Backend
-- Spring Boot 2.7.x
+- Spring Boot 3.2.x
 - Spring Data JPA
 - PostgreSQL database
 - Runs on port 8080
+- Java 21
 
 ### Frontend
 - React 18

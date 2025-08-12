@@ -1,6 +1,6 @@
 package com.example.productservice.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
