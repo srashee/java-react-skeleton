@@ -47,7 +47,7 @@ The frontend will be available at: http://localhost:5173
 
 ### Backend
 - Spring Boot 3.2.x
-- Spring Data JPA
+- Spring JDBC
 - PostgreSQL database
 - Runs on port 8080
 - Java 21

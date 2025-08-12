@@ -1,33 +1,29 @@
 package com.example.productservice.model;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "products")
 public class Product {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @Column(nullable = false)
     private String name;
-    
-    @Column(name = "created_at")
     private LocalDateTime createdAt;
     
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-    }
-    
     // Default constructor
-    public Product() {}
+    public Product() {
+        this.createdAt = LocalDateTime.now();
+    }
     
     // Constructor with name
     public Product(String name) {
         this.name = name;
+        this.createdAt = LocalDateTime.now();
+    }
+    
+    // Constructor with all fields
+    public Product(Long id, String name, LocalDateTime createdAt) {
+        this.id = id;
+        this.name = name;
+        this.createdAt = createdAt;
     }
     
     // Getters and Setters
@@ -53,5 +49,14 @@ public class Product {
     
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+    
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }
