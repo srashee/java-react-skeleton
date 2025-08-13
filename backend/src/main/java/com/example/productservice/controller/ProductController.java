@@ -35,6 +35,13 @@ public class ProductController {
                 .body(saved);
     }
 
+    @GetMapping
+    public ResponseEntity<List<Product>> getProductsByName(@RequestParam String name) {
+        List<Product> products = productRepository.findByNameContainingIgnoreCase(name);
+        return ResponseEntity.ok(products);
+    }
+
+
     @CrossOrigin(
             origins = "http://localhost:5173",
             allowedHeaders = "*"
