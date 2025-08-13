@@ -20,7 +20,7 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
-        List<Product> products = productRepository.findAll();
+        List<Product> products = productRepository.findAllByOrderByCreatedAtDesc();
         return ResponseEntity.ok(products);
     }
 }
