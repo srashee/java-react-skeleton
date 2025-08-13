@@ -29,6 +29,10 @@ docker-compose up -d
 
 The backend will be available at: http://localhost:8080
 
+```bash
+curl http://localhost:8080/products
+```
+
 ### 2. Start the Frontend
 
 ```bash
