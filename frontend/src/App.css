@@ -58,3 +58,7 @@ p {
   color: #666;
   font-style: italic;
 }
+
+.product-card {
+    width: 50%;
+}

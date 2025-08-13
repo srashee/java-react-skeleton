@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
+import ProductCard from './components/ProductCard.jsx'
 
 function App() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(false)
   const [newProductName, setNewProductName] = useState('')
   const [saving, setSaving] = useState(false)
+
+  const [items, setItems] = useState([
+      {description: 'This is a product description', title: 'Product 1'},
+      {description: 'This is another product description', title: 'Product 2'}]
+      )
 
   const API_BASE_URL = 'http://localhost:8080'
 
@@ -65,6 +71,7 @@ function App() {
     <div className="app">
       <h1>Product Management</h1>
 
+
       {/* Create Product Form */}
       <form onSubmit={createProduct} className="create-form">
         <input
@@ -97,6 +104,9 @@ function App() {
             ))}
           </ul>
         )}
+        {items.map (product => (
+                <ProductCard description={product.description} title={product.title} />
+            ))}
       </div>
     </div>
   )
