@@ -4,6 +4,8 @@ import './App.css'
 function App() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(false)
+  const [newProductName, setNewProductName] = useState('')
+  const [saving, setSaving] = useState(false)
 
   const API_BASE_URL = 'http://localhost:8080'
 
@@ -25,6 +27,35 @@ function App() {
     }
   }
 
+  // Create product
+  const createProduct = async (e) => {
+    e.preventDefault()
+    if (!newProductName.trim()) {
+      alert('Product name is required')
+      return
+    }
+
+    try {
+      setSaving(true)
+      const response = await fetch(`${API_BASE_URL}/products`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: newProductName })
+      })
+
+      if (response.ok) {
+        setNewProductName('')
+        fetchProducts()
+      } else {
+        console.error('Failed to create product')
+      }
+    } catch (error) {
+      console.error('Error creating product:', error)
+    } finally {
+      setSaving(false)
+    }
+  }
+
   // Load products on component mount
   useEffect(() => {
     fetchProducts()
@@ -33,7 +64,20 @@ function App() {
   return (
     <div className="app">
       <h1>Product Management</h1>
-      
+
+      {/* Create Product Form */}
+      <form onSubmit={createProduct} className="create-form">
+        <input
+          type="text"
+          placeholder="Enter product name"
+          value={newProductName}
+          onChange={(e) => setNewProductName(e.target.value)}
+        />
+        <button type="submit" disabled={saving}>
+          {saving ? 'Saving...' : 'Add Product'}
+        </button>
+      </form>
+
       {/* Products List */}
       <div className="products-section">
         <h2>Products ({products.length})</h2>
