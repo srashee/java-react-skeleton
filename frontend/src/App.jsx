@@ -9,11 +9,23 @@ function App() {
   const [saving, setSaving] = useState(false)
 
   const [items, setItems] = useState([
-      {description: 'This is a product description', title: 'Product 1'},
-      {description: 'This is another product description', title: 'Product 2'}]
-      )
+      {id: 1, description: 'This is a product description', title: 'Product 1'},
+      {id: 2, description: 'This is another product description', title: 'Product 2'},
+      {id: 3, description: 'A third product with amazing features', title: 'Product 3'},
+      {id: 4, description: 'Premium quality product for professionals', title: 'Product 4'},
+      {id: 5, description: 'Innovative solution for modern needs', title: 'Product 5'}
+  ])
 
   const API_BASE_URL = 'http://localhost:8080'
+
+  // Handle title update for ProductCards
+  const handleTitleUpdate = (id, newTitle) => {
+    setItems(prevItems => 
+      prevItems.map(item => 
+        item.id === id ? { ...item, title: newTitle } : item
+      )
+    )
+  }
 
   // Fetch products from backend
   const fetchProducts = async () => {
@@ -71,7 +83,6 @@ function App() {
     <div className="app">
       <h1>Product Management</h1>
 
-
       {/* Create Product Form */}
       <form onSubmit={createProduct} className="create-form">
         <input
@@ -104,9 +115,19 @@ function App() {
             ))}
           </ul>
         )}
-        {items.map (product => (
-                <ProductCard description={product.description} title={product.title} />
-            ))}
+        
+        {/* Product Cards Grid */}
+        <div className="product-cards-grid">
+          {items.map(product => (
+            <ProductCard 
+              key={product.id}
+              id={product.id}
+              description={product.description} 
+              title={product.title}
+              onTitleUpdate={handleTitleUpdate}
+            />
+          ))}
+        </div>
       </div>
     </div>
   )
