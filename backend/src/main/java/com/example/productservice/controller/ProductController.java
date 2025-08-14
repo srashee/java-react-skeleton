@@ -23,8 +23,30 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> getAllProducts() {
-        return ResponseEntity.ok(productRepository.findAllByOrderByCreatedAtDesc());
+    public ResponseEntity<List<Product>> getAllProducts(@RequestParam(required = false) String name) {
+        System.out.println("=== DEBUG INFO ===");
+        System.out.println("Received name parameter: '" + name + "'");
+        System.out.println("Name is null: " + (name == null));
+        if (name != null) {
+            System.out.println("Name is empty: " + name.trim().isEmpty());
+            System.out.println("Name trimmed: '" + name.trim() + "'");
+        }
+        
+        if (name != null && !name.trim().isEmpty()) {
+            // Search by name
+            String searchTerm = name.trim();
+            System.out.println("Searching for products with name containing: '" + searchTerm + "'");
+            List<Product> products = productRepository.findByNameContainingIgnoreCase(searchTerm);
+            System.out.println("Found " + products.size() + " products matching search term");
+            System.out.println("Products found: " + products);
+            return ResponseEntity.ok(products);
+        } else {
+            // Get all products
+            System.out.println("Getting all products");
+            List<Product> allProducts = productRepository.findAllByOrderByCreatedAtDesc();
+            System.out.println("Total products: " + allProducts.size());
+            return ResponseEntity.ok(allProducts);
+        }
     }
 
     @PostMapping
@@ -34,13 +56,6 @@ public class ProductController {
                 .created(URI.create("/products/" + saved.getId()))
                 .body(saved);
     }
-
-    @GetMapping
-    public ResponseEntity<List<Product>> getProductsByName(@RequestParam String name) {
-        List<Product> products = productRepository.findByNameContainingIgnoreCase(name);
-        return ResponseEntity.ok(products);
-    }
-
 
     @CrossOrigin(
             origins = "http://localhost:5173",

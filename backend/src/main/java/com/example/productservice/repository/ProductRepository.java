@@ -12,5 +12,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     // Find all products ordered by creation date descending
     List<Product> findAllByOrderByCreatedAtDesc();
 
+    // Search products by name (case-insensitive)
     List<Product> findByNameContainingIgnoreCase(String name);
 }
