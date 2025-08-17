@@ -23,6 +23,8 @@ java-react/
 ### 1. Start the Database and Backend
 
 ```bash
+# Test your java build is working before running docker comopose
+mvn clean install
 # Start PostgreSQL and Spring Boot backend
 docker-compose up -d
 ```
