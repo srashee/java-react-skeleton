@@ -15,3 +15,8 @@ EXPOSE 8080
 
 # Run the application
 CMD ["java", "-jar", "target/product-service-0.0.1-SNAPSHOT.jar"]
+
+# Don't cache the backend
+```
+docker-compose build --no-cache backend
+```
